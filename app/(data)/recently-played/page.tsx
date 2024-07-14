@@ -48,7 +48,7 @@ const page = async () => {
               <div key={i} className="flex gap-4">
                 <Link
                   className="place-self-center flex items-center gap-1 hover:scale-95 transition-all"
-                  href={e.context.external_urls.spotify}
+                  href={e.track.external_urls.spotify}
                   target="_blank"
                 >
                   <FaSpotify className="size-4" />
