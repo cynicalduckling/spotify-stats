@@ -2,8 +2,10 @@ import { NextResponse, type NextRequest } from "next/server";
 import { auth } from "./actions/spotify-auth/auth";
 import { Session } from "next-auth";
 import { urlBuilder, appUrl } from "./utils/helper";
+import { spotifySignOut } from "./actions/spotify-auth";
 
 const url = urlBuilder(["api", "refresh-token"]);
+const signOutUrl = urlBuilder(["api", "sign-out"]);
 
 export async function middleware(request: NextRequest) {
   const session: Session | null = await auth();
@@ -12,10 +14,7 @@ export async function middleware(request: NextRequest) {
   if (!sessionUser && request.nextUrl.pathname !== "/")
     return NextResponse.redirect(appUrl);
 
-  if (sessionUser && request.nextUrl.pathname === "/")
-    return NextResponse.redirect(new URL("/tracks", appUrl).href);
-
-  if (sessionUser && request.nextUrl.pathname !== "/") {
+  if (sessionUser) {
     const response = await fetch(url, {
       method: "POST",
       body: JSON.stringify({
@@ -26,7 +25,7 @@ export async function middleware(request: NextRequest) {
     if (response.status === 200) {
       return NextResponse.next();
     } else {
-      return NextResponse.redirect(appUrl);
+      return NextResponse.redirect(signOutUrl);
     }
   }
 
