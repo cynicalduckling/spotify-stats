@@ -51,21 +51,24 @@ const page = async () => {
                   target="_blank"
                   className="flex flex-col justify-center items-center hover:scale-95 transition-all h-full"
                 >
-                  <span className="font-bold text-xs md:text-sm">#{i + 1}</span>
-                  <FaSpotify className="size-4 lg:size-5" />
+                  <div className="bg-indigo-200 text-center text-xs md:text-sm overflow-hidden font-semibold rounded-md border-2 border-black border-b-4 border-r-4 self-center">
+                    <img
+                      className="size-8"
+                      src={e.track.album.images[0].url}
+                      alt=""
+                    />
+                  </div>
                 </Link>
-                <div className="bg-indigo-200 text-center text-xs md:text-sm overflow-hidden font-semibold rounded-md border-2 border-black border-b-4 border-r-4 self-center">
-                  <img
-                    className="size-8"
-                    src={e.track.album.images[0].url}
-                    alt=""
-                  />
-                </div>
                 <div className="bg-indigo-300 text-center p-2 text-xs md:text-sm overflow-hidden font-semibold rounded-md border-2 border-black border-b-4 border-r-4 flex-1">
                   {e.track.name + " - " + e.track.artists[0].name}
                 </div>
                 <div className="bg-teal-300 text-center p-2 text-xs md:text-sm overflow-hidden font-semibold rounded-md border-2 border-black border-b-4 border-r-4">
-                  {new Date(String(e.played_at)).toLocaleString()}
+                  {(
+                    (new Date().getTime() -
+                      new Date(String(e.played_at)).getTime()) /
+                    3600000
+                  ).toFixed(1)}
+                  h ago
                 </div>
               </div>
             ))}
