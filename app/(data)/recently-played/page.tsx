@@ -3,6 +3,7 @@ import AuthToken from "@/models/token";
 import { auth } from "@/actions/spotify-auth/auth";
 import Link from "next/link";
 import { FaSpotify } from "react-icons/fa";
+import { match } from "assert";
 
 const page = async () => {
   await dbConnect();
@@ -44,34 +45,38 @@ const page = async () => {
             Recently Played Tracks
           </div>
           <div className="flex flex-col border-2 border-black border-r-4 border-b-4 bg-lime-300 p-4 gap-4 rounded-md">
-            {recentlyPlayed.map((e: Record<string, any>, i: number) => (
-              <div key={i} className="flex items-center gap-4">
-                <Link
-                  href={e.track.external_urls.spotify}
-                  target="_blank"
-                  className="flex flex-col justify-center items-center hover:scale-95 transition-all h-full"
-                >
-                  <div className="bg-indigo-200 text-center text-xs md:text-sm overflow-hidden font-semibold rounded-md border-2 border-black border-b-4 border-r-4 self-center">
-                    <img
-                      className="size-8"
-                      src={e.track.album.images[0].url}
-                      alt=""
-                    />
+            {recentlyPlayed.map((e: Record<string, any>, i: number) => {
+              let hourDifference = (
+                (new Date().getTime() -
+                  new Date(String(e.played_at)).getTime()) /
+                3600000
+              ).toFixed(1);
+              return (
+                <div key={i} className="flex items-center gap-4">
+                  <Link
+                    href={e.track.external_urls.spotify}
+                    target="_blank"
+                    className="flex flex-col justify-center items-center hover:scale-95 transition-all h-full"
+                  >
+                    <div className="bg-indigo-200 text-center text-xs md:text-sm overflow-hidden font-semibold rounded-md border-2 border-black border-b-4 border-r-4 self-center">
+                      <img
+                        className="size-8"
+                        src={e.track.album.images[0].url}
+                        alt=""
+                      />
+                    </div>
+                  </Link>
+                  <div className="bg-indigo-300 text-center p-2 text-xs md:text-sm overflow-hidden font-semibold rounded-md border-2 border-black border-b-4 border-r-4 flex-1">
+                    {e.track.name + " - " + e.track.artists[0].name}
                   </div>
-                </Link>
-                <div className="bg-indigo-300 text-center p-2 text-xs md:text-sm overflow-hidden font-semibold rounded-md border-2 border-black border-b-4 border-r-4 flex-1">
-                  {e.track.name + " - " + e.track.artists[0].name}
+                  <div className="bg-teal-300 text-center p-2 text-xs md:text-sm overflow-hidden font-semibold rounded-md border-2 border-black border-b-4 border-r-4">
+                    {Number(hourDifference) > 48
+                      ? `${Math.ceil(Number(hourDifference) / 24)}d ago`
+                      : hourDifference + "h ago"}
+                  </div>
                 </div>
-                <div className="bg-teal-300 text-center p-2 text-xs md:text-sm overflow-hidden font-semibold rounded-md border-2 border-black border-b-4 border-r-4">
-                  {(
-                    (new Date().getTime() -
-                      new Date(String(e.played_at)).getTime()) /
-                    3600000
-                  ).toFixed(1)}
-                  h ago
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
