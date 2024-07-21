@@ -45,14 +45,14 @@ const page = async () => {
           </div>
           <div className="flex flex-col border-2 border-black border-r-4 border-b-4 bg-lime-300 p-4 gap-4 rounded-md">
             {recentlyPlayed.map((e: Record<string, any>, i: number) => (
-              <div key={i} className="flex gap-4">
+              <div key={i} className="flex items-center gap-4">
                 <Link
-                  className="place-self-center flex flex-col items-center gap-1 hover:scale-95 transition-all"
                   href={e.track.external_urls.spotify}
                   target="_blank"
+                  className="flex flex-col justify-center items-center hover:scale-95 transition-all h-full"
                 >
-                  <FaSpotify className="size-4" />
-                  <span className="font-bold">#{i + 1}</span>
+                  <span className="font-bold text-xs md:text-sm">#{i + 1}</span>
+                  <FaSpotify className="size-4 lg:size-5" />
                 </Link>
                 <div className="bg-indigo-200 text-center text-xs md:text-sm overflow-hidden font-semibold rounded-md border-2 border-black border-b-4 border-r-4 self-center">
                   <img

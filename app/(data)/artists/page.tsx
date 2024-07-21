@@ -87,23 +87,20 @@ const page = async ({
           </div>
           <div className="flex flex-col border-2 border-black border-r-4 border-b-4 bg-lime-300 p-4 gap-4 rounded-md">
             {artistsData.map((e: Record<string, any>, i: number) => (
-              <div key={i} className="flex gap-4">
+              <div key={i} className="flex items-center gap-4">
                 <Link
-                  className="place-self-center flex items-center gap-1 flex-col hover:scale-95 transition-all"
                   href={e.external_urls.spotify}
                   target="_blank"
+                  className="flex flex-col justify-center items-center hover:scale-95 transition-all h-full"
                 >
-                  <FaSpotify className="size-4" />
-                  <span className="font-bold">#{i + 1}</span>
+                  <span className="font-bold text-xs md:text-sm">#{i + 1}</span>
+                  <FaSpotify className="size-4 lg:size-5" />
                 </Link>
                 <div className="bg-indigo-200 text-center text-xs md:text-sm overflow-hidden font-semibold rounded-md border-2 border-black border-b-4 border-r-4 self-center">
                   <img className="size-8" src={e.images[0].url} alt="" />
                 </div>
                 <div className="bg-indigo-300 text-center p-2 text-xs md:text-sm overflow-hidden font-semibold rounded-md border-2 border-black border-b-4 border-r-4 flex-1">
                   {e.name}
-                </div>
-                <div className="bg-teal-300 text-center p-2 text-xs md:text-sm overflow-hidden font-semibold rounded-md border-2 border-black border-b-4 border-r-4 flex-1">
-                  {e.genres.join(", ")}
                 </div>
               </div>
             ))}
