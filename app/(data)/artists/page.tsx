@@ -89,7 +89,7 @@ const page = async ({
             {artistsData.map((e: Record<string, any>, i: number) => (
               <div key={i} className="flex gap-4">
                 <Link
-                  className="place-self-center flex items-center gap-1 hover:scale-95 transition-all"
+                  className="place-self-center flex items-center gap-1 flex-col hover:scale-95 transition-all"
                   href={e.external_urls.spotify}
                   target="_blank"
                 >

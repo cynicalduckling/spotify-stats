@@ -47,7 +47,7 @@ const page = async () => {
             {recentlyPlayed.map((e: Record<string, any>, i: number) => (
               <div key={i} className="flex gap-4">
                 <Link
-                  className="place-self-center flex items-center gap-1 hover:scale-95 transition-all"
+                  className="place-self-center flex flex-col items-center gap-1 hover:scale-95 transition-all"
                   href={e.track.external_urls.spotify}
                   target="_blank"
                 >
