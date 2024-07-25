@@ -6,6 +6,7 @@ import { spotifySignOut } from "./actions/spotify-auth";
 
 const url = urlBuilder(["api", "refresh-token"]);
 const signOutUrl = urlBuilder(["api", "sign-out"]);
+const tracksUrl = urlBuilder(["tracks"]);
 
 export async function middleware(request: NextRequest) {
   const session: Session | null = await auth();
@@ -23,6 +24,9 @@ export async function middleware(request: NextRequest) {
       }),
     });
     if (response.status === 200) {
+      if (request.nextUrl.pathname === "/")
+        return NextResponse.redirect(tracksUrl);
+
       return NextResponse.next();
     } else {
       return NextResponse.redirect(signOutUrl);
