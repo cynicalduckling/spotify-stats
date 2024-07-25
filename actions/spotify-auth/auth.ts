@@ -14,8 +14,6 @@ const authUrl = urlBuilder(
   "https://accounts.spotify.com/"
 );
 
-console.log(authUrl);
-
 const signInUrl = urlBuilder(["api", "signin"]);
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
