@@ -31,6 +31,7 @@ const page = async ({
       headers: { Authorization: `Bearer ${userToken.access_token}` },
     }
   );
+  console.log(response.status);
 
   let currReqData = await response.json();
 

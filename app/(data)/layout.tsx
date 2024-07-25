@@ -8,7 +8,7 @@ export default function DataLayout({
   return (
     <>
       <Navbar />
-      <main className="bg-white gap-6 px-8 mx-auto flex flex-col w-full justify-center min-h-screen max-w-screen-lg pb-6">
+      <main className="bg-white gap-6 px-8 mx-auto flex flex-col w-full justify-start min-h-screen max-w-screen-lg pb-6">
         {children}
       </main>
     </>
